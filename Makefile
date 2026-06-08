@@ -6,7 +6,11 @@ all: pdf
 
 pdf:
 	mkdir -p $(DOC_DIR)/$(BUILD_DIR)
-	# Compila o arquivo latex duas vezes para resolver referências e o Sumário
+	# 1. Primeira compilação para ler a estrutura
+	-cd $(DOC_DIR) && pdflatex -output-directory=$(BUILD_DIR) -interaction=nonstopmode $(MAIN).tex
+	# 2. Processa as referências bibliográficas (lê o arquivo .bib)
+	-cd $(DOC_DIR) && bibtex $(BUILD_DIR)/$(MAIN)
+	# 3. Compila mais duas vezes para encaixar as referências e consertar o Sumário
 	-cd $(DOC_DIR) && pdflatex -output-directory=$(BUILD_DIR) -interaction=nonstopmode $(MAIN).tex
 	-cd $(DOC_DIR) && pdflatex -output-directory=$(BUILD_DIR) -interaction=nonstopmode $(MAIN).tex
 	# Copia o PDF gerado para a raiz do projeto
