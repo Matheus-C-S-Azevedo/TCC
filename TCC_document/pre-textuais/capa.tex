@@ -1,0 +1,46 @@
+\begin{folhaderosto}
+\thispagestyle{empty} % Remove qualquer cabeçalho ou número de página solto
+
+% Autor no topo
+\begin{center}
+    {\ABNTEXchapterfont\bfseries\large\imprimirautor}
+\end{center}
+
+\vspace{5cm} % Espaçamento fixo entre Autor e Título
+
+% Título centralizado
+\begin{center}
+    {\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+\end{center}
+
+\vspace{2.5cm} % Espaçamento entre Título e Preâmbulo
+
+% Preâmbulo alinhado perfeitamente na metade direita da página
+\begin{flushright}
+    \begin{minipage}{0.5\textwidth}
+        \SingleSpacing
+        \imprimirpreambulo
+    \end{minipage}
+\end{flushright}
+
+\vspace{2.5cm} % Espaçamento entre Preâmbulo e Assinatura
+
+% Orientador e assinatura centralizados
+\begin{center}
+    Orientador: \imprimirorientador
+    
+    \vspace{1.2cm} % Espaço para a caneta
+    
+    \rule{8cm}{0.15mm}
+\end{center}
+
+\vspace*{\fill} % Empurra o bloco de data exatamente para o rodapé
+
+% Local e Data
+\begin{center}
+    {\large\imprimirlocal}
+    \par
+    {\large\imprimirdata}
+\end{center}
+
+\end{folhaderosto}

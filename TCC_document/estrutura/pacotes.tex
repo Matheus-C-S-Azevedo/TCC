@@ -1,0 +1,22 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+% --- Formatação Rigorosa ABNT ---
+\usepackage{times} % Fonte Times New Roman (usando times em vez de mathptmx para evitar bug interno do compilador)
+\usepackage[alf]{abntex2cite} % Pacote ABNT para citações
+
+% Força a fonte com serifa (Times) nos títulos de capítulos e seções
+\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
+\renewcommand{\ABNTEXsectionfont}{\rmfamily\bfseries}
+\renewcommand{\ABNTEXsubsectionfont}{\rmfamily\bfseries}
+\renewcommand{\ABNTEXsubsubsectionfont}{\rmfamily\bfseries}
+
+% Força o tamanho 12 (normalsize) para todos os títulos
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+
+% Adicione outros pacotes necessários aqui

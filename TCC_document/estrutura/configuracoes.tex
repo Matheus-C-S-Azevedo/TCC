@@ -1,0 +1,39 @@
+% --- Criação de Variáveis Customizadas ---
+\providecommand{\imprimiravaliador}{}
+\newcommand{\avaliador}[1]{\renewcommand{\imprimiravaliador}{#1}}
+
+\autor{MATHEUS COSTA SOARES DE AZEVEDO}
+\titulo{DESENVOLVIMENTO DE UM PROTÓTIPO DE DISPOSITIVO DE BAIXO CUSTO BASEADO EM INTERNET OF THINGS PARA MONITORAMENTO DE FOCOS DE INCÊNDIO NA FLORESTA AMAZÔNICA}
+\orientador{Rubens de Andrade Fernandes, Dr.}
+\avaliador{Bruno da Gama Monteiro, Me.}
+
+\local{Manaus}
+\data{2026}
+
+
+\preambulo{Projeto de pesquisa desenvolvido durante a disciplina de Trabalho de Conclusão de Curso I e apresentado à banca avaliadora do curso de Engenharia Eletrônica da Escola Superior de Tecnologia da Universidade do Estado do Amazonas, como pré-requisito para obtenção do título de Engenheiro em Eletrônica.}
+
+% --- Configurações de Formatação de Parágrafo ABNT ---
+\setlength{\parindent}{1.5cm} % Recuo da primeira linha do parágrafo
+\setlength{\parskip}{0.2cm}   % Espaço entre um parágrafo e outro
+\OnehalfSpacing               % Espaçamento de 1.5 entre linhas
+
+% --- Estilo de Página (Cabeçalhos) ---
+% Força o estilo 'abntheadings' a ser 'simple', o que remove a linha e o nome do capítulo
+% do topo da página, deixando apenas o número da página no canto superior direito.
+\aliaspagestyle{abntheadings}{simple}
+
+% --- Configurações de Links do PDF ---
+% Isso remove as caixas vermelhas em volta dos itens do sumário e deixa tudo em texto preto normal
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black
+}
+
+% --- Traduções e Textos ---
+\addto\captionsbrazil{
+  \renewcommand{\contentsname}{SUMÁRIO}
+}

@@ -1,23 +1,36 @@
-\documentclass[12pt,openright,oneside,a4paper,english,french,spanish,brazil]{abntex2}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
+\documentclass[12pt,openright,oneside,a4paper,english,french,spanish,brazil,sumario=tradicional]{abntex2}
 
-\titulo{Título do TCC}
-\autor{Matheus Costa}
-\local{Cidade}
-\data{\today}
+% --- Inclusão de Pacotes ---
+\input{estrutura/pacotes.tex}
+
+% --- Configurações da UEA (Autor, Título, etc.) ---
+\input{estrutura/configuracoes.tex}
 
 \begin{document}
 
-\imprimircapa
-\imprimirfolhaderosto
+% --- Elementos Pré-Textuais ---
+\pretextual
+\input{pre-textuais/capa.tex}
 
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% --- Elementos Textuais ---
 \textual
-\chapter{Introdução}
-O texto do seu TCC começa aqui.
+\input{capitulos/00-introducao.tex}
+\input{capitulos/01-tema.tex}
+\input{capitulos/02-formulacao_do_problema.tex}
+\input{capitulos/03-hipotese.tex}
+\input{capitulos/04-objetivo.tex}
+\input{capitulos/05-justificativa.tex}
+\input{capitulos/06-referencial_teorico.tex}
+\input{capitulos/07-metodologia.tex}
 
+% --- Elementos Pós-Textuais ---
 \postextual
-% \bibliography{../Referências/referencias}
+\input{pos-textuais/cronograma.tex}
+\bibliography{referencias}
+%\input{pos-textuais/folha-aprovacao.tex}
 
 \end{document}
