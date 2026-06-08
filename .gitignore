@@ -1,0 +1,4 @@
+# Ignorar todos os arquivos dentro da pasta build
+TCC_document/build/*
+!TCC_document/build/.keep
+Material_de_apoio/*
