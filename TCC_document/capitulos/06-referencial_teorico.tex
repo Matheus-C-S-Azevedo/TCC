@@ -10,21 +10,31 @@ A ascensão dessas tecnologias exige que os dispositivos presentes no chão de f
 
 Para organizar e padronizar o avanço e a complexidade arquitetural trazidos pela Indústria 4.0, a Associação Alemã de Fabricantes Eletroeletrônicos (ZVEI) em conjunto com a \textit{Plattform Industrie 4.0} desenvolveu o Modelo Arquitetural de Referência para a Indústria 4.0, conhecido como RAMI 4.0 (\textit{Reference Architectural Model Industrie 4.0}) \cite{zvei2015}. O RAMI 4.0 consiste em um modelo tridimensional que mapeia todos os aspectos cruciais de um ativo industrial, criando um espaço de coordenadas onde qualquer componente pode ser classificado e descrito sistematicamente \cite{plattform2016}.
 
-\figure{rami_archtecture.jpg}
+\begin{figure}[htb]
+    \centering
+    \caption{Representação do Modelo Arquitetural de Referência RAMI 4.0}
+    \label{fig:rami_archtecture}
+    \includegraphics[width=0.85\textwidth]{figuras/rami_archtecture.jpg}
+    
+    \fonte{Adaptado de \citeonline{sci40rami}.}
+\end{figure}
 
 O modelo é dividido em três eixos principais: o Eixo da Hierarquia, que classifica os ativos desde o produto e componentes de baixo nível (\textit{field devices}) até o mundo conectado; o Eixo do Ciclo de Vida e Cadeia de Valor, que acompanha o ativo desde o seu desenvolvimento até a manutenção e descarte; e o Eixo de Camadas Arquiteturais (\textit{Architecture Layers}), composto por seis divisões (Negócios, Funcional, Informação, Comunicação, Integração e Ativos) \cite{plattform2016, zvei2015}.
 
-Para que um ativo físico (como um microcontrolador ou sensor) seja oficialmente reconhecido como um Componente da Indústria 4.0 dentro do RAMI 4.0, é mandatório que ele seja encapsulado por uma camada lógica de informações conhecida como \textit{Asset Administration Shell} (AAS) \cite{pribis2021}. O AAS preenche as exigências das camadas superiores de Informação e Integração do RAMI 4.0, viabilizando a interoperabilidade universal exigida na manufatura avançada e fornecendo o pano de fundo ideal para a implantação de gêmeos digitais \cite{olaya2025}.
+Para que um ativo físico (como um microcontrolador ou sensor) seja oficialmente reconhecido como um Componente da Indústria 4.0 dentro do RAMI 4.0, é mandatório que ele seja encapsulado por uma camada lógica de informações conhecida como \textit{Asset Administration Shell} (AAS) \cite{pribis2021}. O AAS preenche as exigências das camadas superiores de Informação e Integração do RAMI 4.0, viabilizando a interoperabilidade universal exigida na manufatura avançada e fornecendo o pano de fundo ideal para a implantação de gêmeos digitais \cite{olaya2025}
 
 \section{Gêmeos Digitais e \textit{Asset Administration Shell}}
 \subsection{O Conceito de Gêmeos Digitais}
-% Teoria sobre representações virtuais de ativos físicos
+O Gêmeo Digital (\textit{Digital Twin}) é conceituado como uma representação virtual de alta fidelidade de um ativo, sistema ou processo do mundo real. Na Indústria 4.0, essa representação digital transcende a simples modelagem estática, operando como um canal bidirecional que conecta atributos físicos e dados em tempo real com seu equivalente cibernético \cite{iicplattform2020}. Ao longo de todo o ciclo de vida do ativo, o Gêmeo Digital garante a rastreabilidade, apoia a tomada de decisão preditiva e viabiliza modelos de negócios avançados \cite{zhang2025}. Para que a adoção em larga escala de Gêmeos Digitais ocorra de maneira funcional e semântica na manufatura, é fundamental uma arquitetura padronizada de dados e interfaces, papel nativamente desempenhado pelo \textit{Asset Administration Shell} (AAS) \cite{iicplattform2020}.
+
 \subsection{A Estrutura do \textit{Asset Administration Shell}}
-% Explicar submodelos, propriedades e padronização do AAS
+O AAS atua como a implementação concreta e padronizada do Gêmeo Digital para os Componentes da Indústria 4.0. Estruturalmente, o metamodelo do AAS é organizado de forma hierárquica e modular. Todo ativo físico encapsulado por um AAS contém um conjunto de submodelos (\textit{Submodels}), que operam como agrupamentos de propriedades, parâmetros ou especificações relacionadas a um domínio específico (por exemplo: identificação, documentação técnica, parâmetros operacionais) \cite{idta2025}. A principal vantagem dessa estruturação, gerida ativamente pela \textit{Industrial Digital Twin Association} (IDTA), é garantir que qualquer componente físico possa ter suas características descritas sob uma taxonomia uniforme, semanticamente robusta e agnóstica a fabricantes \cite{idta2025}.
+
 \subsection{Tipos de AAS (Tipo 1, Tipo 2 e Tipo 3)}
-% Diferenciar o JSON estático (Tipo 1) de implementações ativas/embarcadas (Tipo 2)
+O nível de interatividade, ou maturação, de um AAS pode ser categorizado em três tipologias distintas \cite{zhang2025}. O AAS Tipo 1 (AAS Passivo) consiste primariamente em um pacote de arquivos estáticos (como serializações JSON ou XML empacotadas), concebidos para o intercâmbio offline de informações entre engenheiros e plataformas integradoras. O AAS Tipo 2 (AAS Reativo) representa um salto rumo à digitalização operacional: ele introduz interfaces de programação de aplicações (APIs) ativas e conectividade \cite{idtaPart2}, possibilitando que outros sistemas consultem ou atualizem as informações do ativo em tempo real pela rede via chamadas padronizadas. Por fim, o AAS Tipo 3 (AAS Proativo) engloba agentes de software autônomos que não apenas respondem a consultas, mas tomam decisões ativas e interagem diretamente com outros nós de manufatura inteligente na infraestrutura \cite{zhang2025}.
+
 \subsection{AASX Package Explorer}
-% Explicar a ferramenta utilizada para modelagem visual e exportação do JSON do AAS
+Para viabilizar a criação, modelagem visual e o intercâmbio amigável de informações do AAS, o formato de pacote unificado AASX foi formalizado \cite{idtaPart5}. Para construir e manipular esses arquivos sem exigir edição direta de código puro, o \textit{AASX Package Explorer}, projeto mantido em código aberto sob o consórcio da \textit{Eclipse Foundation} \cite{eclipseAasxServer, eclipseAasxExplorer}, consolidou-se como a principal ferramenta de engenharia do ecossistema. Trata-se de uma interface gráfica que permite aos projetistas modelar submodelos, carregar referências e exportar a estrutura do AAS para formatos brutos como o JSON \cite{eclipseAasxExplorer}. No escopo de desenvolvimento embarcado, essa ferramenta é vital: a exportação JSON atua como a "planta-baixa" estática (Tipo 1) que será posteriormente importada, lida e transformada em um Gêmeo Digital dinâmico e reativo (Tipo 2) pela biblioteca embarcada apresentada neste projeto.
 
 \section{Interoperabilidade e Protocolos de Comunicação}
 \subsection{Arquitetura OPC UA}
