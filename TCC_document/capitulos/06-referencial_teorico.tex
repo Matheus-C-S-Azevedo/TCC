@@ -35,14 +35,30 @@ O AAS atua como a implementação concreta e padronizada do Gêmeo Digital para 
 \subsection{Tipos de AAS (Tipo 1, Tipo 2 e Tipo 3)}
 O nível de interatividade, ou maturação, de um AAS pode ser categorizado em três tipologias distintas \cite{zhang2025}. O AAS Tipo 1 (AAS Passivo) consiste primariamente em um pacote de arquivos estáticos (como serializações JSON ou XML empacotadas), concebidos para o intercâmbio offline de informações entre engenheiros e plataformas integradoras. O AAS Tipo 2 (AAS Reativo) representa um salto rumo à digitalização operacional: ele introduz interfaces de programação de aplicações (APIs) ativas e conectividade \cite{idtaPart2}, possibilitando que outros sistemas consultem ou atualizem as informações do ativo em tempo real pela rede via chamadas padronizadas. Por fim, o AAS Tipo 3 (AAS Proativo) engloba agentes de software autônomos que não apenas respondem a consultas, mas tomam decisões ativas e interagem diretamente com outros nós de manufatura inteligente na infraestrutura \cite{zhang2025}.
 
+\begin{figure}[htb]
+    \centering
+    \caption{Os três tipos de AAS de acordo com o \textit{Plattform Industrie 4.0}}
+    \label{fig:aas_types}
+    \includegraphics[width=0.85\textwidth]{figuras/aas_types.png}
+    
+    \fonte{Adaptado de \citeonline{zhang2025}.}
+\end{figure}
+
 \subsection{AASX Package Explorer}
 Para viabilizar a criação, modelagem visual e o intercâmbio amigável de informações do AAS, o formato de pacote unificado AASX foi formalizado \cite{idtaPart5}. Para construir e manipular esses arquivos sem exigir edição direta de código puro, o \textit{AASX Package Explorer}, projeto mantido em código aberto sob o consórcio da \textit{Eclipse Foundation} \cite{eclipseAasxServer, eclipseAasxExplorer}, consolidou-se como a principal ferramenta de engenharia do ecossistema. Trata-se de uma interface gráfica que permite aos projetistas modelar submodelos, carregar referências e exportar a estrutura do AAS para formatos brutos como o JSON \cite{eclipseAasxExplorer}. No escopo de desenvolvimento embarcado, essa ferramenta é vital: a exportação JSON atua como a "planta-baixa" estática (Tipo 1) que será posteriormente importada, lida e transformada em um Gêmeo Digital dinâmico e reativo (Tipo 2) pela biblioteca embarcada apresentada neste projeto.
+
+\begin{figure}[htb]
+    \centering
+    \caption{Interface gráfica para modelagem de AAS do tipo 1 \textit{Aasx Explorer}}
+    \label{fig:package_explorer}
+    \includegraphics[width=0.85\textwidth]{figuras/package_explorer.png}
+    
+    \fonte{Adaptado de \citeonline{eclipseAasxExplorer}.}
+\end{figure}
 
 \section{Interoperabilidade e Protocolos de Comunicação}
 \subsection{Arquitetura OPC UA}
 % Explicar o modelo cliente-servidor, a árvore de nós de informação e o foco na indústria
-\subsection{Padrões Web (HTTP/REST)}
-% Base para a historização de dados ou comunicação com bancos externos
 
 \section{Sistemas Operacionais de Tempo Real (RTOS)}
 \subsection{Conceitos de Sistemas de Tempo Real}
