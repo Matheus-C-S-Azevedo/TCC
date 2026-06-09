@@ -24,7 +24,7 @@
 % --- Elementos Textuais ---
 \textual
 % Desativa a quebra de página automática entre capítulos e força uma quebra de parágrafo com espaço
-\renewcommand{\clearforchapter}{\par\vspace{1.0cm}}
+\renewcommand{\clearforchapter}{\par\vspace{0.8cm}}
 \setlength{\beforechapskip}{0pt}
 
 \input{capitulos/01-tema.tex}
@@ -39,8 +39,10 @@
 \postextual
 \clearpage
 \input{pos-textuais/cronograma.tex}
+\clearpage
 \bibliographystyle{abntex2-alf}
 \bibliography{referencias}
+%\clearpage
 %\input{pos-textuais/folha-aprovacao.tex}
 
 \end{document}
