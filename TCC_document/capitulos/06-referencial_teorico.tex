@@ -1,18 +1,59 @@
 \chapter{REFERENCIAL TEÓRICO}
 
-\section{Industria 4.0}
-\subsection{Rami 4.0}
+\section{Indústria 4.0}
 
-\section{Gêmeos digitais}
-\subsection{Asset Administration Shell}
-\subsection{Tipos de AAS}
+O conceito de Indústria 4.0 emergiu na Alemanha em 2011 e foi consolidado como uma iniciativa estratégica governamental para a digitalização da manufatura \cite{kagermann2013}. Essa nova revolução industrial é fundamentada na integração profunda entre o mundo físico e o ambiente digital por meio de Sistemas Ciber-Físicos (CPS) e da Internet das Coisas (\textit{Internet of Things} - IoT) \cite{gubbi2013}. Diferentemente das revoluções anteriores, que focavam primariamente na automação e em sistemas mecânicos, a Indústria 4.0 baseia-se na descentralização da inteligência, permitindo que componentes, máquinas e linhas de produção tomem decisões autônomas, troquem dados em tempo real e se adaptem a requisitos dinâmicos de produção de forma altamente flexível \cite{kagermann2013}.
 
-\section{Protocolos de comunicação}
-\subsection{OPC UA}
-\subsection{HTTP}
+A ascensão dessas tecnologias exige que os dispositivos presentes no chão de fábrica ultrapassem as suas funcionalidades puramente elétricas ou mecânicas. Componentes industriais modernos precisam se tornar atores ativos nas redes de comunicação, exigindo representações virtuais sólidas (Gêmeos Digitais) capazes de descrever suas propriedades, status e documentação de maneira padronizada e interoperável \cite{olaya2025}. Para que a verdadeira interoperabilidade seja alcançada, os dispositivos IoT e IIoT (\textit{Industrial Internet of Things}) precisam não apenas compartilhar meios de comunicação em comum, mas também compartilhar do mesmo significado semântico em suas trocas de dados \cite{pribis2021}. 
 
-\section{FreeRTOS}
+\subsection{Modelo de Referência RAMI 4.0}
 
-\section{MICROCONTROLADOR ESP32}
+Para organizar e padronizar o avanço e a complexidade arquitetural trazidos pela Indústria 4.0, a Associação Alemã de Fabricantes Eletroeletrônicos (ZVEI) em conjunto com a \textit{Plattform Industrie 4.0} desenvolveu o Modelo Arquitetural de Referência para a Indústria 4.0, conhecido como RAMI 4.0 (\textit{Reference Architectural Model Industrie 4.0}) \cite{zvei2015}. O RAMI 4.0 consiste em um modelo tridimensional que mapeia todos os aspectos cruciais de um ativo industrial, criando um espaço de coordenadas onde qualquer componente pode ser classificado e descrito sistematicamente \cite{plattform2016}.
 
-\section{SENSORES}
+\figure{rami_archtecture.jpg}
+
+O modelo é dividido em três eixos principais: o Eixo da Hierarquia, que classifica os ativos desde o produto e componentes de baixo nível (\textit{field devices}) até o mundo conectado; o Eixo do Ciclo de Vida e Cadeia de Valor, que acompanha o ativo desde o seu desenvolvimento até a manutenção e descarte; e o Eixo de Camadas Arquiteturais (\textit{Architecture Layers}), composto por seis divisões (Negócios, Funcional, Informação, Comunicação, Integração e Ativos) \cite{plattform2016, zvei2015}.
+
+Para que um ativo físico (como um microcontrolador ou sensor) seja oficialmente reconhecido como um Componente da Indústria 4.0 dentro do RAMI 4.0, é mandatório que ele seja encapsulado por uma camada lógica de informações conhecida como \textit{Asset Administration Shell} (AAS) \cite{pribis2021}. O AAS preenche as exigências das camadas superiores de Informação e Integração do RAMI 4.0, viabilizando a interoperabilidade universal exigida na manufatura avançada e fornecendo o pano de fundo ideal para a implantação de gêmeos digitais \cite{olaya2025}.
+
+\section{Gêmeos Digitais e \textit{Asset Administration Shell}}
+\subsection{O Conceito de Gêmeos Digitais}
+% Teoria sobre representações virtuais de ativos físicos
+\subsection{A Estrutura do \textit{Asset Administration Shell}}
+% Explicar submodelos, propriedades e padronização do AAS
+\subsection{Tipos de AAS (Tipo 1, Tipo 2 e Tipo 3)}
+% Diferenciar o JSON estático (Tipo 1) de implementações ativas/embarcadas (Tipo 2)
+\subsection{AASX Package Explorer}
+% Explicar a ferramenta utilizada para modelagem visual e exportação do JSON do AAS
+
+\section{Interoperabilidade e Protocolos de Comunicação}
+\subsection{Arquitetura OPC UA}
+% Explicar o modelo cliente-servidor, a árvore de nós de informação e o foco na indústria
+\subsection{Padrões Web (HTTP/REST)}
+% Base para a historização de dados ou comunicação com bancos externos
+
+\section{Sistemas Operacionais de Tempo Real (RTOS)}
+\subsection{Conceitos de Sistemas de Tempo Real}
+% Diferença entre execução sequencial (bare-metal) e agendamento de tarefas concorrentes
+\subsection{O \textit{FreeRTOS}}
+% Como o FreeRTOS vai gerenciar a leitura de sensores e atualização OPC UA simultaneamente
+\subsection{\textit{Framework} ESP-IDF}
+% Abordar o framework oficial da Espressif, que utiliza o FreeRTOS nativamente
+
+\section{Hardware e Instrumentação}
+\subsection{O Microcontrolador ESP32}
+% Focar no poder de processamento, memória e conectividade WiFi necessários para suportar o AAS e OPC UA
+\subsection{Módulo de Cartão SD}
+% Teoria sobre a interface SPI e persistência de dados local
+\subsection{Sensoriamento Eletroeletrônico}
+% Introdução aos sensores que validarão o protótipo
+\subsubsection{Sensor de Tensão}
+\subsubsection{Sensor de Corrente}
+
+\section{Armazenamento e Historização em Sistemas Embarcados}
+\subsection{Memórias Flash Não Voláteis}
+% Conceitos de gravação em memória interna
+\subsection{Sistemas de Arquivos (\textit{File Systems})}
+% Explicar o uso do FAT ou LittleFS para a gravação de arquivos no SD Card
+\subsection{Bancos de Dados para IoT}
+% Teoria de historização remota de dados industriais (time-series)
