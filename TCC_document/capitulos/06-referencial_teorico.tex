@@ -57,31 +57,86 @@ Para viabilizar a criação, modelagem visual e o intercâmbio amigável de info
 \end{figure}
 
 \section{Interoperabilidade e Protocolos de Comunicação}
+
+A viabilidade da Indústria 4.0 e dos Gêmeos Digitais está condicionada à capacidade de diferentes máquinas e sistemas trocarem dados de forma fluida, segura e com significado semântico, independentemente do fabricante. Nesse cenário, a interoperabilidade deixou de ser apenas a transmissão bruta de bits para exigir um modelo onde a informação possui contexto embutido \cite{opcfoundation2026}. É exatamente nessa necessidade de comunicação semântica que o \textit{Asset Administration Shell} (AAS) depende de protocolos avançados para sair de um arquivo passivo e se materializar como um gêmeo digital reativo.
+
 \subsection{Arquitetura OPC UA}
-% Explicar o modelo cliente-servidor, a árvore de nós de informação e o foco na indústria
+
+A \textit{Open Platform Communications Unified Architecture} (OPC UA) consolida-se atualmente como o protocolo padrão absoluto para a comunicação industrial e a espinha dorsal da interoperabilidade na Indústria 4.0 \cite{opcfoundation2026}. A grande importância do OPC UA para o AAS reside na sua capacidade nativa de modelagem de informações (\textit{Information Modeling}). Enquanto protocolos tradicionais (como Modbus ou MQTT simples) limitam-se a transferir variáveis isoladas e desprovidas de contexto hierárquico, o OPC UA permite estruturar os dados em uma topologia complexa orientada a objetos, refletindo perfeitamente a estrutura de submodelos e propriedades exigida pelo AAS \cite{opcfoundation2026, pribis2021}. Dessa forma, o OPC UA não é apenas um protocolo de transporte de mensagens, mas o vetor semântico ideal para expor a árvore do AAS na rede industrial.
+
+Do ponto de vista técnico, a arquitetura do OPC UA opera primariamente sob um modelo cliente-servidor \cite{opcfoundation2026}. O coração do protocolo é o seu Espaço de Endereçamento (\textit{Address Space}), composto por nós (\textit{Nodes}) interconectados por referências que formam uma malha ou árvore de dados. Cada nó possui atributos específicos, como valor, tipo de dado e descrição. No escopo de desenvolvimento deste trabalho, quando um arquivo AAS estático (JSON Tipo 1) é lido por um dispositivo físico (como o ESP32), a biblioteca embarcada funciona como um Servidor OPC UA interno. Esse servidor tem a missão de transcrever a estrutura aninhada do AAS diretamente em nós e referências no seu \textit{Address Space} \cite{pribis2021}. Uma vez carregado, isso permite que qualquer cliente OPC UA na fábrica possa explorar a árvore de informações do dispositivo, acessar documentações e monitorar os valores dos sensores em tempo real.
 
 \section{Sistemas Operacionais de Tempo Real (RTOS)}
-\subsection{Conceitos de Sistemas de Tempo Real}
-% Diferença entre execução sequencial (bare-metal) e agendamento de tarefas concorrentes
 \subsection{O \textit{FreeRTOS}}
-% Como o FreeRTOS vai gerenciar a leitura de sensores e atualização OPC UA simultaneamente
+
+O \textit{FreeRTOS} é um dos sistemas operacionais de tempo real mais amplamente adotados no ecossistema de sistemas embarcados, projetado especificamente para microcontroladores com recursos restritos de memória e processamento \cite{barry2016}. Sua arquitetura baseia-se em um núcleo (\textit{kernel}) leve que gerencia a execução de múltiplas tarefas (\textit{tasks}) através de um escalonador preemptivo baseado em prioridades. Isso significa que tarefas mais críticas podem interromper imediatamente tarefas de menor prioridade para utilizar a CPU, garantindo tempos de resposta determinísticos \cite{barry2016}.
+
+No contexto da biblioteca proposta neste trabalho, o \textit{FreeRTOS} desempenha um papel arquitetural indispensável. O gerenciamento de um Gêmeo Digital embarcado (AAS Tipo 2) exige a execução concorrente de diversas operações assíncronas. O microcontrolador deve ler os sensores físicos rotineiramente para registrar dados de corrente e tensão, e realizar as operações de historização (gravação em memória ou cartão SD). Simultaneamente a tudo isso, o Servidor OPC UA interno precisa processar conexões de rede e responder a requisições externas rapidamente para atualizar a árvore de nós do AAS. O escalonamento preemptivo e as ferramentas de comunicação inter-tarefas do \textit{FreeRTOS} (como filas, semáforos e \textit{mutexes}) são os mecanismos que garantem que a pesada biblioteca de comunicação não bloqueie a precisão da leitura dos sensores \cite{barry2016}.
+
 \subsection{\textit{Framework} ESP-IDF}
-% Abordar o framework oficial da Espressif, que utiliza o FreeRTOS nativamente
+
+O \textit{ESP-IDF} (\textit{Espressif IoT Development Framework}) é a plataforma oficial de desenvolvimento fornecida pela \textit{Espressif Systems} para a sua popular linha de microcontroladores baseados na arquitetura ESP32 \cite{espressif2026}. Projetado para extrair o máximo de desempenho do hardware, o \textit{ESP-IDF} utiliza uma versão amplamente integrada e otimizada do \textit{FreeRTOS} como o seu sistema operacional central \cite{espressif2026}.
+
+Essa integração estrutural proporciona vantagens cruciais para a engenharia de \textit{firmwares} avançados. O \textit{FreeRTOS} presente nativamente no \textit{ESP-IDF} sofreu adaptações pesadas por parte da fabricante para suportar o Multiprocessamento Simétrico (SMP - \textit{Symmetric Multiprocessing}), o que viabiliza a alocação de diferentes \textit{tasks} do sistema operacional em núcleos separados do processador físico simultaneamente \cite{espressif2026}. Essa tecnologia embarcada servirá de pilar para o projeto, fornecendo uma base sólida de \textit{drivers}, \textit{threads} e rede, garantindo que o \textit{firmware} opere com segurança, isolando o protocolo OPC UA em um núcleo enquanto os sensores operam livres de interferência no outro núcleo do chip.
 
 \section{Hardware e Instrumentação}
-\subsection{O Microcontrolador ESP32}
-% Focar no poder de processamento, memória e conectividade WiFi necessários para suportar o AAS e OPC UA
-\subsection{Módulo de Cartão SD}
-% Teoria sobre a interface SPI e persistência de dados local
-\subsection{Sensoriamento Eletroeletrônico}
-% Introdução aos sensores que validarão o protótipo
-\subsubsection{Sensor de Tensão}
-\subsubsection{Sensor de Corrente}
 
-\section{Armazenamento e Historização em Sistemas Embarcados}
-\subsection{Memórias Flash Não Voláteis}
-% Conceitos de gravação em memória interna
-\subsection{Sistemas de Arquivos (\textit{File Systems})}
-% Explicar o uso do FAT ou LittleFS para a gravação de arquivos no SD Card
-\subsection{Bancos de Dados para IoT}
-% Teoria de historização remota de dados industriais (time-series)
+A construção de um Gêmeo Digital com características de Componente da Indústria 4.0 demanda um suporte físico capaz de prover aquisição precisa de dados, poder de processamento computacional e infraestrutura robusta de rede. A arquitetura de \textit{hardware} deste projeto foi idealizada combinando a versatilidade de um microcontrolador de alta performance com a utilização de módulos periféricos para armazenamento local e sensoriamento.
+
+\subsection{O Microcontrolador ESP32}
+
+O microcontrolador selecionado para sediar o \textit{firmware} da biblioteca e atuar como o Servidor OPC UA do AAS foi o ESP32, projetado pela \textit{Espressif Systems}. O ESP32 destaca-se na área de Internet das Coisas (IoT) por incorporar um microprocessador Tensilica Xtensa Dual-Core de 32 bits, operando a até 240 MHz, juntamente a controladores nativos de comunicação Wi-Fi e \textit{Bluetooth/BLE} \cite{espressifESP32}. 
+
+A justificativa para sua escolha recai sobre duas frentes essenciais. Primeiramente, o processamento de estruturas JSON complexas, além da hospedagem da pilha TCP/IP e criptográfica exigidas pelo OPC UA, demandam capacidades computacionais e quantidade de memória RAM superiores àquelas encontradas em microcontroladores \textit{bare-metal} simples de 8 bits \cite{espressifESP32}. Em segundo lugar, o fato de ser o hardware projetado nativamente para o \textit{ESP-IDF} possibilita o perfeito isolamento das \textit{tasks} críticas nos dois núcleos físicos, garantindo a estabilidade da leitura dos sensores em tempo real.
+
+\begin{figure}[htb]
+    \centering
+    \caption{ESP32-DevKitC V4 com o módulo ESP32-WROOM-32 soldado}
+    \label{fig:package_explorer}
+    \includegraphics[width=0.75\textwidth]{figuras/esp32_devkitc.jpg}
+    
+    \fonte{Adaptado de \citeonline{espressifESP32board}.}
+\end{figure}
+
+\subsection{Módulo de Cartão Micro SD}
+
+Uma das funcionalidades-chave agregadas à biblioteca embarcada desenvolvida neste trabalho é a historização local dos dados do AAS. Para essa persistência, o projeto lança mão de um Módulo de Cartão Micro SD \cite{makerheroSD}. Este módulo serve como uma interface física (\textit{shield}) que converte a pinagem de um cartão Micro SD padrão para que ele possa se comunicar com o ESP32 utilizando o barramento de alta velocidade \textit{Serial Peripheral Interface} (SPI) \cite{makerheroSD}. Graças a essa arquitetura, é viável gravar grandes volumes de séries temporais das coletas do maquinário de forma não-volátil e com fácil remoção física para auditorias ou diagnósticos em PCs convencionais.
+
+\begin{figure}[htb]
+    \centering
+    \caption{Módulo de Cartão Micro SD}
+    \label{fig:SD_module}
+    \includegraphics[width=0.35\textwidth]{figuras/sdcard.png}
+    
+    \fonte{Adaptado de \citeonline{makerheroSD}.}
+\end{figure}
+
+\subsection{Sensoriamento Eletroeletrônico}
+
+Para a prova de conceito do sistema funcionando ativamente (AAS Tipo 2), a camada de instrumentação consistirá em monitorar os parâmetros elétricos de uma carga real. Isso comprovará a eficácia da biblioteca embarcada em capturar dados, digitalizá-los e atualizá-los ativamente nos nós da árvore OPC UA.
+
+\subsubsection{Sensor de Tensão (ZMPT101B)}
+
+O módulo baseado no transformador de tensão ZMPT101B \cite{zmpt101b}. Trata-se de um micro transformador de alta precisão que atua rebaixando a alta tensão da rede alternada para níveis lógicos compatíveis e seguros. Além do rebaixamento, o circuito amplificador operacional que acompanha o módulo provê isolação galvânica completa, protegendo fisicamente os pinos do microcontrolador contra perturbações da rede principal \cite{zmpt101b}.
+
+\begin{figure}[htb]
+    \centering
+    \caption{Sensor de tensão ZMPT101B}
+    \label{fig:sensor ZMPT101B}
+    \includegraphics[width=0.40\textwidth]{figuras/ZMPT101B.png}
+    
+    \fonte{Adaptado de \citeonline{zmpt101bImage}.}
+\end{figure}
+
+\subsubsection{Sensor de Corrente (SCT-013)}
+
+Esse dispositivo é classificado como um Transformador de Corrente (TC) de núcleo bipartido. A sua principal vantagem em ambientes de implantação da Indústria 4.0 é a capacidade de medir a corrente elétrica através do campo magnético induzido pelo condutor ativo, sem a necessidade de interrupção, corte ou decapagem do cabo de alimentação \cite{sct013}.
+
+\begin{figure}[htb]
+    \centering
+    \caption{Sensor de corrente SCT-013}
+    \label{fig:sensor SCT-013}
+    \includegraphics[width=0.25\textwidth]{figuras/yhdc.png}
+    
+    \fonte{Adaptado de \citeonline{sct013}.}
+\end{figure}
