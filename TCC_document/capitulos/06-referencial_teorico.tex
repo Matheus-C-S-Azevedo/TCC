@@ -9,7 +9,7 @@ A ascensão dessas tecnologias exige que os dispositivos presentes no chão de f
 
 \subsection{Modelo de Referência RAMI 4.0}
 
-Para organizar e padronizar o avanço e a complexidade arquitetural trazidos pela Indústria 4.0, a Associação Alemã de Fabricantes Eletroeletrônicos (ZVEI) em conjunto com a \textit{Plattform Industrie 4.0} desenvolveu o Modelo Arquitetural de Referência para a Indústria 4.0, conhecido como RAMI 4.0 (\textit{Reference Architectural Model Industrie 4.0}) \cite{zvei2015}. O RAMI 4.0 consiste em um modelo tridimensional que mapeia todos os aspectos cruciais de um ativo industrial, criando um espaço de coordenadas onde qualquer componente pode ser classificado e descrito sistematicamente \cite{plattform2016}.
+Para organizar e padronizar o avanço e a complexidade arquitetural trazidos pela Indústria 4.0, a Associação Alemã de Fabricantes Eletroeletrônicos (ZVEI) em conjunto com a \textit{Plattform Industrie 4.0} desenvolveu o Modelo Arquitetural de Referência para a Indústria 4.0, conhecido como RAMI 4.0 (\textit{Reference Architectural Model Industrie 4.0}) \cite{zvei2015}. O RAMI 4.0, ilustrado na Figura \ref{fig:rami_archtecture}, consiste em um modelo tridimensional que mapeia todos os aspectos cruciais de um ativo industrial, criando um espaço de coordenadas onde qualquer componente pode ser classificado e descrito sistematicamente \cite{plattform2016}.
 
 \begin{figure}[htb]
     \centering
@@ -33,7 +33,7 @@ O Gêmeo Digital (\textit{Digital Twin}) é conceituado como uma representação
 O AAS atua como a implementação concreta e padronizada do Gêmeo Digital para os Componentes da Indústria 4.0. Estruturalmente, o metamodelo do AAS é organizado de forma hierárquica e modular. Todo ativo físico encapsulado por um AAS contém um conjunto de submodelos (\textit{Submodels}), que operam como agrupamentos de propriedades, parâmetros ou especificações relacionadas a um domínio específico (por exemplo: identificação, documentação técnica, parâmetros operacionais) \cite{idta2025}. A principal vantagem dessa estruturação, gerida ativamente pela \textit{Industrial Digital Twin Association} (IDTA), é garantir que qualquer componente físico possa ter suas características descritas sob uma taxonomia uniforme, semanticamente robusta e agnóstica a fabricantes \cite{idta2025}.
 
 \subsection{Tipos de AAS (Tipo 1, Tipo 2 e Tipo 3)}
-O nível de interatividade, ou maturação, de um AAS pode ser categorizado em três tipologias distintas \cite{zhang2025}. O AAS Tipo 1 (AAS Passivo) consiste primariamente em um pacote de arquivos estáticos (como serializações JSON ou XML empacotadas), concebidos para o intercâmbio offline de informações entre engenheiros e plataformas integradoras. O AAS Tipo 2 (AAS Reativo) representa um salto rumo à digitalização operacional: ele introduz interfaces de programação de aplicações (APIs) ativas e conectividade \cite{idtaPart2}, possibilitando que outros sistemas consultem ou atualizem as informações do ativo em tempo real pela rede via chamadas padronizadas. Por fim, o AAS Tipo 3 (AAS Proativo) engloba agentes de software autônomos que não apenas respondem a consultas, mas tomam decisões ativas e interagem diretamente com outros nós de manufatura inteligente na infraestrutura \cite{zhang2025}.
+O nível de interatividade, ou maturação, de um AAS pode ser categorizado em três tipologias distintas, conforme ilustrado na Figura \ref{fig:aas_types} \cite{zhang2025}. O AAS Tipo 1 (AAS Passivo) consiste primariamente em um pacote de arquivos estáticos (como serializações JSON ou XML empacotadas), concebidos para o intercâmbio offline de informações entre engenheiros e plataformas integradoras. O AAS Tipo 2 (AAS Reativo) representa um salto rumo à digitalização operacional: ele introduz interfaces de programação de aplicações (APIs) ativas e conectividade \cite{idtaPart2}, possibilitando que outros sistemas consultem ou atualizem as informações do ativo em tempo real pela rede via chamadas padronizadas. Por fim, o AAS Tipo 3 (AAS Proativo) engloba agentes de \textit{software} autônomos que não apenas respondem a consultas, mas tomam decisões ativas e interagem diretamente com outros nós de manufatura inteligente na infraestrutura \cite{zhang2025}.
 
 \begin{figure}[htb]
     \centering
@@ -45,7 +45,7 @@ O nível de interatividade, ou maturação, de um AAS pode ser categorizado em t
 \end{figure}
 
 \subsection{AASX Package Explorer}
-Para viabilizar a criação, modelagem visual e o intercâmbio amigável de informações do AAS, o formato de pacote unificado AASX foi formalizado \cite{idtaPart5}. Para construir e manipular esses arquivos sem exigir edição direta de código puro, o \textit{AASX Package Explorer}, projeto mantido em código aberto sob o consórcio da \textit{Eclipse Foundation} \cite{eclipseAasxServer, eclipseAasxExplorer}, consolidou-se como a principal ferramenta de engenharia do ecossistema. Trata-se de uma interface gráfica que permite aos projetistas modelar submodelos, carregar referências e exportar a estrutura do AAS para formatos brutos como o JSON \cite{eclipseAasxExplorer}. No escopo de desenvolvimento embarcado, essa ferramenta é vital: a exportação JSON atua como a "planta-baixa" estática (Tipo 1) que será posteriormente importada, lida e transformada em um Gêmeo Digital dinâmico e reativo (Tipo 2) pela biblioteca embarcada apresentada neste projeto.
+Para viabilizar a criação, modelagem visual e o intercâmbio amigável de informações do AAS, o formato de pacote unificado AASX foi formalizado \cite{idtaPart5}. Para construir e manipular esses arquivos sem exigir edição direta de código puro, o \textit{AASX Package Explorer}, projeto mantido em código aberto sob o consórcio da \textit{Eclipse Foundation} \cite{eclipseAasxServer, eclipseAasxExplorer}, consolidou-se como a principal ferramenta de engenharia do ecossistema. Trata-se de uma interface gráfica, ilustrada na Figura \ref{fig:package_explorer}, que permite aos projetistas modelar submodelos, carregar referências e exportar a estrutura do AAS para formatos brutos como o JSON \cite{eclipseAasxExplorer}. No escopo de desenvolvimento embarcado, essa ferramenta é vital: a exportação JSON atua como a "planta-baixa" estática (Tipo 1) que será posteriormente importada, lida e transformada em um Gêmeo Digital dinâmico e reativo (Tipo 2) pela biblioteca embarcada apresentada neste projeto.
 
 \begin{figure}[htb]
     \centering
@@ -85,14 +85,14 @@ A construção de um Gêmeo Digital com características de Componente da Indús
 
 \subsection{O Microcontrolador ESP32}
 
-O microcontrolador selecionado para sediar o \textit{firmware} da biblioteca e atuar como o Servidor OPC UA do AAS foi o ESP32, projetado pela \textit{Espressif Systems}. O ESP32 destaca-se na área de IoT por incorporar um microprocessador Tensilica Xtensa Dual-Core de 32 bits, operando a até 240 MHz, juntamente a controladores nativos de comunicação Wi-Fi e \textit{Bluetooth/BLE} \cite{espressifESP32}. 
+O microcontrolador selecionado para sediar o \textit{firmware} da biblioteca e atuar como o Servidor OPC UA do AAS foi o ESP32, projetado pela \textit{Espressif Systems}, cuja placa de desenvolvimento (DevKitC) é ilustrada na Figura \ref{fig:esp32}. O ESP32 destaca-se na área de IoT por incorporar um microprocessador Tensilica Xtensa Dual-Core de 32 bits, operando a até 240 MHz, juntamente a controladores nativos de comunicação Wi-Fi e \textit{Bluetooth/BLE} \cite{espressifESP32}. 
 
 A justificativa para sua escolha recai sobre duas frentes essenciais. Primeiramente, o processamento de estruturas JSON complexas, além da hospedagem da pilha TCP/IP e criptográfica exigidas pelo OPC UA, demandam capacidades computacionais e quantidade de memória RAM superiores àquelas encontradas em microcontroladores \textit{bare-metal} simples de 8 bits \cite{espressifESP32}. Em segundo lugar, o fato de ser o hardware projetado nativamente para o \textit{ESP-IDF} possibilita o perfeito isolamento das \textit{tasks} críticas nos dois núcleos físicos, garantindo a estabilidade da leitura dos sensores em tempo real.
 
 \begin{figure}[htb]
     \centering
     \caption{ESP32-DevKitC V4 com o módulo ESP32-WROOM-32 soldado}
-    \label{fig:package_explorer}
+    \label{fig:esp32}
     \includegraphics[width=0.75\textwidth]{figuras/esp32_devkitc.jpg}
     
     \fonte{Adaptado de \citeonline{espressifESP32board}.}
@@ -100,7 +100,7 @@ A justificativa para sua escolha recai sobre duas frentes essenciais. Primeirame
 
 \subsection{Módulo de Cartão Micro SD}
 
-Uma das funcionalidades-chave agregadas à biblioteca embarcada desenvolvida neste trabalho é a historização local dos dados do AAS. Para essa persistência, o projeto lança mão de um Módulo de Cartão Micro SD \cite{makerheroSD}. Este módulo serve como uma interface física (\textit{shield}) que converte a pinagem de um cartão Micro SD padrão para que ele possa se comunicar com o ESP32 utilizando o barramento de alta velocidade \textit{Serial Peripheral Interface} (SPI) \cite{makerheroSD}. Graças a essa arquitetura, é viável gravar grandes volumes de séries temporais das coletas do maquinário de forma não-volátil e com fácil remoção física para auditorias ou diagnósticos em PCs convencionais.
+Uma das funcionalidades-chave agregadas à biblioteca embarcada desenvolvida neste trabalho é a historização local dos dados do AAS. Para essa persistência, o projeto lança mão de um Módulo de Cartão Micro SD, ilustrado na Figura \ref{fig:SD_module} \cite{makerheroSD}. Este módulo serve como uma interface física (\textit{shield}) que converte a pinagem de um cartão Micro SD padrão para que ele possa se comunicar com o ESP32 utilizando o barramento de alta velocidade \textit{Serial Peripheral Interface} (SPI) \cite{makerheroSD}. Graças a essa arquitetura, é viável gravar grandes volumes de séries temporais das coletas do maquinário de forma não-volátil e com fácil remoção física para auditorias ou diagnósticos em PCs convencionais.
 
 \begin{figure}[htb]
     \centering
@@ -117,7 +117,7 @@ Para a prova de conceito do sistema funcionando ativamente (AAS Tipo 2), a camad
 
 \subsubsection{Sensor de Tensão (ZMPT101B)}
 
-O módulo baseado no transformador de tensão ZMPT101B \cite{zmpt101b}. Trata-se de um micro transformador de alta precisão que atua rebaixando a alta tensão da rede alternada para níveis lógicos compatíveis e seguros. Além do rebaixamento, o circuito amplificador operacional que acompanha o módulo provê isolação galvânica completa, protegendo fisicamente os pinos do microcontrolador contra perturbações da rede principal \cite{zmpt101b}.
+O módulo baseado no transformador de tensão ZMPT101B é ilustrado na Figura \ref{fig:sensor ZMPT101B} \cite{zmpt101b}. Trata-se de um micro transformador de alta precisão que atua rebaixando a alta tensão da rede alternada para níveis lógicos compatíveis e seguros. Além do rebaixamento, o circuito amplificador operacional que acompanha o módulo provê isolação galvânica completa, protegendo fisicamente os pinos do microcontrolador contra perturbações da rede principal \cite{zmpt101b}.
 
 \begin{figure}[htb]
     \centering
@@ -130,7 +130,7 @@ O módulo baseado no transformador de tensão ZMPT101B \cite{zmpt101b}. Trata-se
 
 \subsubsection{Sensor de Corrente (SCT-013)}
 
-Esse dispositivo é classificado como um Transformador de Corrente (TC) de núcleo bipartido. A sua principal vantagem em ambientes de implantação da Indústria 4.0 é a capacidade de medir a corrente elétrica através do campo magnético induzido pelo condutor ativo, sem a necessidade de interrupção, corte ou decapagem do cabo de alimentação \cite{sct013}.
+Esse dispositivo, ilustrado na Figura \ref{fig:sensor SCT-013}, é classificado como um Transformador de Corrente (TC) de núcleo bipartido. A sua principal vantagem em ambientes de implantação da Indústria 4.0 é a capacidade de medir a corrente elétrica através do campo magnético induzido pelo condutor ativo, sem a necessidade de interrupção, corte ou decapagem do cabo de alimentação \cite{sct013}.
 
 \begin{figure}[htb]
     \centering

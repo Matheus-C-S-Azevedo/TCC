@@ -10,6 +10,8 @@ pdf:
 	-cd $(DOC_DIR) && pdflatex -output-directory=$(BUILD_DIR) -interaction=nonstopmode $(MAIN).tex
 	# 2. Processa as referências bibliográficas (lê o arquivo .bib)
 	-cd $(DOC_DIR) && bibtex $(BUILD_DIR)/$(MAIN)
+	# Corrige o uppercase das citações para a nova ABNT NBR 10520:2023 substituindo a versão ALL CAPS pelo nome normal gerado no BBL
+	-sed -i 's/\\abntrefinfo{\([^}]*\)}{\([^}]*\)}/\\abntrefinfo{\1}{\1}/' $(DOC_DIR)/$(BUILD_DIR)/$(MAIN).bbl
 	# 3. Compila mais duas vezes para encaixar as referências e consertar o Sumário
 	-cd $(DOC_DIR) && pdflatex -output-directory=$(BUILD_DIR) -interaction=nonstopmode $(MAIN).tex
 	-cd $(DOC_DIR) && pdflatex -output-directory=$(BUILD_DIR) -interaction=nonstopmode $(MAIN).tex
